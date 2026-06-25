@@ -9,12 +9,11 @@ local CurrentDay = 0
 local ElapsedTime = 0
 local IsNight = false
 
--- 벽 그룹 설정 (3일마다 사라질 벽들)
--- 예: Wall_Day3, Wall_Day6, Wall_Day9
+-- 벽 그룹 설정 (3일, 6일마다 사라질 벽들)
+-- 예: Wall_Day3, Wall_Day6
 local WallGroups = {
 	{day = 3, folder = Walls:WaitForChild("Wall_Day3")},
-	{day = 6, folder = Walls:WaitForChild("Wall_Day6")},
-	{day = 9, folder = Walls:WaitForChild("Wall_Day9")}
+	{day = 6, folder = Walls:WaitForChild("Wall_Day6")}
 }
 
 local function RemoveWallGroup(wallFolder)
@@ -30,7 +29,7 @@ local function UpdateDay()
 	CurrentDay = math.floor(ElapsedTime / CycleDuration) + 1
 	IsNight = (ElapsedTime % CycleDuration) >= DayDuration
 	
-	-- 3일마다 해당 벽 제거
+	-- 3일, 6일마다 해당 벽 제거
 	for i, wallGroup in pairs(WallGroups) do
 		if CurrentDay == wallGroup.day then
 			RemoveWallGroup(wallGroup.folder)
